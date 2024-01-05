@@ -20,8 +20,16 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const postsToCreate = ops.posts.creates
       .filter((create) => {
         // only alf-related posts
-        return create.record.text.toLowerCase().includes('alf')
-      })
+        return create.record.text.toLowerCase().includes(' AI') || 
+          create.record.text.toLowerCase().includes(' ML') || 
+          create.record.text.toLowerCase().includes(' Artificial Intelligence') || 
+          create.record.text.toLowerCase().includes(' Machine Learning') || 
+          create.record.text.toLowerCase().includes(' Deep Learning') || 
+          create.record.text.toLowerCase().includes(' Neural Networks') || 
+          create.record.text.toLowerCase().includes(' Natural Language Processing') || 
+          create.record.text.toLowerCase().includes(' Computer Vision') || 
+          create.record.text.toLowerCase().includes(' Robotics') || 
+          create.record.text.toLowerCase().includes(' Data Science');      })
       .map((create) => {
         // map alf-related posts to a db row
         return {
