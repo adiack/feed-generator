@@ -15,21 +15,39 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     for (const post of ops.posts.creates) {
       console.log(post.record.text)
     }
-
+    const aiKeywords = [
+  'AI',
+  'ML',
+  'Artificial Intelligence',
+  'Machine Learning',
+  'Deep Learning',
+  'Neural Networks',
+  'Natural Language Processing',
+  'Computer Vision',
+  'Robotics',
+  'Data Science',
+  'Machine Learning',
+  'Neural Networks',
+  'Reinforcement Learning',
+  'Supervised Learning',
+  'Unsupervised Learning',
+  'Generative Adversarial Networks',
+  'Natural Language Generation',
+  'Time Series Analysis',
+  'Predictive Analytics',
+  'Data Mining',
+  'Data Visualization',
+  'Recommender Systems',
+  'Speech Recognition',
+  'Image Recognition',
+  ];
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
       .filter((create) => {
         // only alf-related posts
-        return create.record.text.toLowerCase().includes(' AI') || 
-          create.record.text.toLowerCase().includes(' ML') || 
-          create.record.text.toLowerCase().includes(' Artificial Intelligence') || 
-          create.record.text.toLowerCase().includes(' Machine Learning') || 
-          create.record.text.toLowerCase().includes(' Deep Learning') || 
-          create.record.text.toLowerCase().includes(' Neural Networks') || 
-          create.record.text.toLowerCase().includes(' Natural Language Processing') || 
-          create.record.text.toLowerCase().includes(' Computer Vision') || 
-          create.record.text.toLowerCase().includes(' Robotics') || 
-          create.record.text.toLowerCase().includes(' Data Science');      })
+    return aiKeywords.some((keyword) => {
+    return create.record.text.toLowerCase().includes(keyword.toLowerCase());
+    });
       .map((create) => {
         // map alf-related posts to a db row
         return {
